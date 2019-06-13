@@ -8,6 +8,8 @@
 // Load the OG Jenkins Library
 @Library('OGJenkinsLib@3.6.1') _
 import com.opengov.OGConstants
+def nonce = new Random().nextInt(10000)
+def date = new Date().format('yyyy-MM-dd', TimeZone.getTimeZone('PST'))
 
 final GIT_REPOSITORY_NAME = 'amazon-eks-ami'
 final String DEFAULT_UPLOAD_REGION = 'us-west-2'
@@ -16,8 +18,7 @@ final String AMI_NAME = "amazon-eks-encrypted-${date}-${nonce}"
 def containers = [
   OGContainer('devops', "${env.INTERNAL_REGISTRY_HOSTNAME}/devops", '2.2.0', [resourceLimitCpu: '2', resourceLimitMemory: '1G'])
 ]
-def nonce = new Random().nextInt(10000)
-def date = new Date().format('yyyy-MM-dd', TimeZone.getTimeZone('PST'))
+
 
 
 
