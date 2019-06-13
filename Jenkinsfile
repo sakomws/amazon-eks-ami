@@ -19,27 +19,24 @@ def containers = [
   OGContainer('devops', "${env.INTERNAL_REGISTRY_HOSTNAME}/devops", '2.2.0', [resourceLimitCpu: '2', resourceLimitMemory: '1G'])
 ]
 
-
-
-
 // Where the pipeline configuration will be stored
 def scmVars      // SCM
-def config = [:]
-config.git = [:]
-config.git.shortBranchName = scmVars.GIT_BRANCH
-config.git.branch = "origin/${config.git.shortBranchName}"
-config.git.targetBranch = env.CHANGE_TARGET ? "origin/${env.CHANGE_TARGET}" : config.git.branch // If its a pull request then the target branch should be set
-config.git.isPullRequest = env.CHANGE_ID.asBoolean() // Only set if its a pull request
+def config = [:]  // Pipeline configuration
 
 OGPipeline(containers) {
   stage('Setup') {
     // Checkout the pipeline code first so that the properties.groovy file can
     // then be loaded
-    checkout scm
+    scmVars = checkout scm
+    config = load('Jenkinsfile.properties')
+    // Get all relevant Git information
+    config.git = [:]
+
+
+    config.git.isPullRequest = env.CHANGE_ID.asBoolean() // Only set if its a pull request
 
     // Load the pipeline properties and configuration
-    config = load 'Jenkinsfile.properties'
-
+    
     config.packerConf = utils.parseJSON(readFile('eks-worker-al2.json'))
 
     // Check version
