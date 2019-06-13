@@ -61,7 +61,8 @@ sudo yum install -y \
     nfs-utils \
     socat \
     unzip \
-    wget
+    wget \ 
+    https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
 
 ################################################################################
 ### Time #######################################################################
@@ -96,6 +97,7 @@ sudo mv $TEMPLATE_DIR/iptables-restore.service /etc/systemd/system/iptables-rest
 
 sudo systemctl daemon-reload
 sudo systemctl enable iptables-restore
+sudo systemctl start amazon-ssm-agent
 
 ################################################################################
 ### Docker #####################################################################
