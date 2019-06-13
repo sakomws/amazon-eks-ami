@@ -17,10 +17,8 @@ final String AMI_NAME = "amazon-eks-encrypted-${date}-${nonce}"
 final String ENCRYPTED = "true"
 
 def containers = [
-  OGContainer('devops', "${env.INTERNAL_REGISTRY_HOSTNAME}/devops", '2.2.0', [resourceLimitCpu: '2', resourceLimitMemory: '1G'])
+  OGContainer('packer', 'hashicorp/packer', '1.4.1', [resourceLimitCpu: '2', resourceLimitMemory: '1G'])
 ]
-
-
 OGPipeline(containers) {
   stage('Setup') {
     // Where the pipeline configuration will be stored
