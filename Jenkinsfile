@@ -37,7 +37,7 @@ OGPipeline(containers) {
     config.packerConf = utils.parseJSON(readFile('eks-worker-al2.json'))
 
     // Check version
-    container('devops') {
+    container('packer') {
       sh 'packer version'
     }
 
@@ -46,7 +46,7 @@ OGPipeline(containers) {
   }
 
   stage('Create and Push Encrypted AMIs') {
-    container('devops') {
+    container('packer') {
       dir('packer') { 
         // modify Packer template
         config.packerConf.variables['ami_name'] = AMI_NAME
