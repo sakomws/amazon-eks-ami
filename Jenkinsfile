@@ -15,6 +15,7 @@ final GIT_REPOSITORY_NAME = 'amazon-eks-ami'
 final String DEFAULT_UPLOAD_REGION = 'us-west-2'
 final String AMI_NAME = "amazon-eks-encrypted-${date}-${nonce}"
 final String ENCRYPTED = "true"
+def config = [:]  // Pipeline configuration
 
 def containers = [
   OGContainer('packer', 'hashicorp/packer', '1.4.1', [resourceLimitCpu: '2', resourceLimitMemory: '1G'])
@@ -23,7 +24,7 @@ OGPipeline(containers) {
   stage('Setup') {
     // Where the pipeline configuration will be stored
     def scmVars      // SCM
-    def config = [:]  // Pipeline configuration
+
     // Checkout the pipeline code first so that the properties.groovy file can
     // then be loaded
     scmVars = checkout scm
