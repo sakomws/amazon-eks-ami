@@ -13,7 +13,7 @@
 
     "arch": "x86_64",
     "instance_type": "c5.large",
-    "binary_bucket_name": "",
+    "binary_bucket_name": "amazon-eks",
     "docker_version": "18.06",
     "source_ami_id": "",
     "kms_key_id": "",
