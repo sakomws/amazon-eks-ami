@@ -58,7 +58,7 @@ OGPipeline(containers) {
         writeFile(file: "eks-packer-config.json", text: utils.jsonify(config.packerConf))
 
         // copy bootstrap resources
-        sh "cp -R files ."
+        sh "cp -R ../files ."
 
         echo "Using packer template: \n${utils.jsonify(config.packerConf)}"
 
