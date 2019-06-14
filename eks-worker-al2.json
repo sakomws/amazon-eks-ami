@@ -12,7 +12,7 @@
     "aws_session_token": "{{env `AWS_SESSION_TOKEN`}}",
 
     "arch": "",
-    "instance_type": "",
+    "instance_type": "c5.large",
     "binary_bucket_name": "",
     "docker_version": "",
     "source_ami_id": "",
